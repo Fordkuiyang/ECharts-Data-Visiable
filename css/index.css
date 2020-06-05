@@ -110,6 +110,23 @@ header .showTime {
   font-size: 0.25rem;
   font-weight: 400;
 }
+.main .panel h2 a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.125rem;
+}
+.main .panel h2 a:link {
+  color: #ff0000;
+}
+.main .panel h2 a:visited {
+  color: #00ff00;
+}
+.main .panel h2 a:hover {
+  color: #ff00ff;
+}
+.main .panel h2 a:active {
+  color: #0000ff;
+}
 .main .panel .chart {
   height: 3rem;
 }

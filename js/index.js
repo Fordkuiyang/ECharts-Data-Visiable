@@ -88,6 +88,232 @@
   });
 })();
 
+// 柱状图二
 (function () {
-  var myChart = "second chart";
+  // 实例化对象
+  var myChart = echarts.init(document.querySelector(".bar2 .chart"));
+  var myColor = ["#1089E7", "#F57474", "#56D0E3", "#F8B448", "#8B78F6"];
+  // 配置和数据
+  option = {
+    grid: {
+      top: "10%",
+      left: "23%",
+      bottom: "10%",
+      containLabel: false,
+    },
+    // 不显示这周的相关配置
+    xAxis: {
+      show: false,
+    },
+    yAxis: [
+      {
+        type: "category",
+        inverse: true,
+        data: ["HTML5", "CSS3", "javascript", "VUE", "NODE"],
+        // 不显示y轴的线
+        axisLine: {
+          show: false,
+        },
+        // 不显示刻度
+        axisTick: {
+          show: false,
+        },
+        // 把刻度标签里面的文字颜色设置为白色
+        axisLabel: {
+          color: "#fff",
+        },
+      },
+      {
+        show: true,
+        inverse: true,
+        data: [702, 350, 610, 793, 664],
+        // 不显示y轴的线
+        axisLine: {
+          show: false,
+        },
+        // 不显示刻度
+        axisTick: {
+          show: false,
+        },
+        axisLabel: {
+          textStyle: {
+            fontSize: 12,
+            color: "#fff",
+          },
+        },
+      },
+    ],
+    series: [
+      {
+        name: "条",
+        type: "bar",
+        data: [70, 34, 60, 78, 69],
+        // 柱子之间的距离
+        barCategoryGap: 50,
+        //柱子的宽度
+        barWidth: 15,
+        // 柱子设为圆角
+        itemStyle: {
+          normal: {
+            barBorderRadius: 20,
+            color: (params) => {
+              // dataIndex是当前柱子的索引号
+              return myColor[params.dataIndex];
+            },
+          },
+        },
+        yAxisIndex: 0,
+        //显示柱子内的文字
+        label: {
+          show: true,
+          position: "inside",
+          formatter: "{c}%",
+        },
+      },
+      {
+        name: "框",
+        type: "bar",
+        data: [100, 100, 100, 100, 100],
+        barCategoryGap: 50,
+        barWidth: 15,
+        itemStyle: {
+          color: "none",
+          borderColor: "#00c1de",
+          borderWidth: 3,
+          barBorderRadius: 15,
+        },
+        yAxisIndex: 1,
+      },
+    ],
+  };
+
+  //3. 把指定配置给实例
+  myChart.setOption(option);
+  window.addEventListener("resize", function () {
+    myChart.resize();
+  });
+})();
+//折线图1模块制作
+(function () {
+  var myChart = echarts.init(document.querySelector(".line .chart"));
+  var yearData = [
+    {
+      year: "2020", // 年份
+      data: [
+        // 两个数组是因为有两条线
+        [24, 40, 101, 134, 90, 230, 210, 230, 120, 230, 210, 120],
+        [40, 64, 191, 324, 290, 330, 310, 213, 180, 200, 180, 79],
+      ],
+    },
+    {
+      year: "2021", // 年份
+      data: [
+        // 两个数组是因为有两条线
+        [123, 175, 112, 197, 121, 67, 98, 21, 43, 64, 76, 38],
+        [143, 131, 165, 123, 178, 21, 82, 64, 43, 60, 19, 34],
+      ],
+    },
+  ];
+
+  option = {
+    color: ["#00f2f1", "#ed3f35"],
+    tooltip: {
+      trigger: "axis",
+    },
+    legend: {
+      data: ["新增粉丝", "新增游客"],
+      textStyle: {
+        //修改图例组建的文字颜色
+        color: "#4c9bfd",
+      },
+      right: "3%",
+    },
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      show: true, // 显示边框
+      borderColor: "#012f4a", // 边框颜色
+      containLabel: true, // 包含刻度文字在内
+    },
+    /*  toolbox: {
+      feature: {
+        saveAsImage: {},
+      },
+    }, */
+    xAxis: {
+      type: "category",
+      boundaryGap: false,
+      data: [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+      ],
+      axisTick: {
+        show: false, // 去除刻度线
+      },
+      axisLabel: {
+        color: "#4c9bfd", // 文本颜色
+      },
+      axisLine: {
+        show: false, // 去除轴线
+      },
+      boundaryGap: false, // 去除轴内间距
+    },
+    yAxis: {
+      type: "value",
+      axisTick: {
+        show: false, // 去除刻度线
+      },
+      axisLabel: {
+        color: "#4c9bfd", // 文本颜色
+      },
+      axisLine: {
+        show: false, // 去除轴线
+      },
+      boundaryGap: false, // 去除轴内间距
+      splitLine: {
+        lineStyle: {
+          color: "#012f4a", // 分割线颜色
+        },
+      },
+    },
+    series: [
+      {
+        type: "line",
+        stack: "总量",
+        name: "新增粉丝",
+        data: yearData[0].data[0],
+        // 折线修饰为圆滑
+        smooth: true,
+      },
+      {
+        type: "line",
+        stack: "总量",
+        name: "新增游客",
+        data: yearData[0].data[1],
+        smooth: true,
+      },
+    ],
+  };
+  myChart.setOption(option);
+  window.addEventListener("resize", function () {
+    myChart.resize();
+  });
+
+  $(".line h2").on("click", "a", function () {
+    var obj = yearData[$(this).index()];
+    option.series[0].data = obj.data[0];
+    option.series[1].data = obj.data[1];
+    myChart.setOption(option);
+  });
 })();
